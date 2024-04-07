@@ -1,24 +1,20 @@
-import React from 'react'//引入React以支持JSX的语法
-import { StaticRouter } from 'react-router-dom'
-import { renderToString } from'react-dom/server'//引入renderToString方法
-import Routers from '../routers/Routers.js'
-import { Provider } from 'react-redux'
-import { renderRoutes } from 'react-router-config'
+import React from "react"; //引入React以支持JSX的语法
+import { StaticRouter } from "react-router-dom";
+import { renderToString } from "react-dom/server"; //引入renderToString方法
+import Routers from "../routers/Routers.js";
+import { Provider } from "react-redux";
+import { renderRoutes } from "react-router-config";
 
-export const render = (req, store)=> {
-    
-    const content = renderToString((
-        <Provider store={store}>
-            <StaticRouter location={req.path} context={{}}>
-            <div>
-                {renderRoutes(Routers)}
-            </div>
-            </StaticRouter>
-            </Provider>
-        ));
+export const render = (req, store) => {
+  const content = renderToString(
+    <Provider store={store}>
+      <StaticRouter location={req.path} context={{}}>
+        <div>{renderRoutes(Routers)}</div>
+      </StaticRouter>
+    </Provider>
+  );
 
-        
-        return `
+  return `
         <html>
         <head>
             <title>SSR</title>
@@ -33,6 +29,5 @@ export const render = (req, store)=> {
             <script src='./index.js'></script>
         </body>
         </html>
-        `
-    
-}
+        `;
+};
